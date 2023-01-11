@@ -1,3 +1,4 @@
+
 """'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Takes named variable and converts to a numbered vJoy key
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"""
@@ -18,14 +19,24 @@ CounterMeasures = 3             #SC_Right_Warthog
 LockFireMissiles = 4            #SC_Right_Warthog     
 SpeedLimitUp = 5                #SC_Left_Virpil
 SpeedLimitDown = 6              #SC_Left_Virpil
-SpaceBrake = 7
-Boost = 8
-LandingGear = 9
+
+
+
+#MFD Left
+ESPToggle = 7                   # MFD Left
+Decouple = 8                    # MFD Left
+gsafe = 9                       # MFD Left
 Quantum = 10
-Autoland = 11
-VTOL = 12
-Afterburner = 13
-LookBehind = 14
+
+
+ActiveScan = 11                 # MFD Left
+RadarPing = 12                  # MFD Left
+AnglePlus = 13                  # MFD Left
+AngleMinus = 14                  # MFD Left
+ScanMode = 15                   # MFD Left
+
+
+
 
 #Targetting
 PinSelectedTarget = 15          #SC_Right_Warthog     
@@ -33,30 +44,31 @@ PinSelectedTarget = 15          #SC_Right_Warthog
 TgtReticle = 16                 #SC_Right_Warthog  
 
 
+PinLock1 = 17                   #SC_Right_Warthog 
+PinLock2 = 18                   #SC_Right_Warthog 
+PinLock3 = 19                   #SC_Right_Warthog 
+RemoveAllPins = 20              #SC_Right_Warthog 
 
-
-PinLock1 = 17
-PinLock2 = 18
-PinLock3 = 19
-RemoveAllPins = 20
-
-blank = 21
+CruiseControl = 21
 TgtCyclePinned = 22
 TgtCycleHostile = 23            #SC_Right_Warthog  
 TgtCycleHostileBck = 24         #SC_Right_Warthog  
 TgtNearestHostile = 25          #SC_Right_Warthog  
 
-ShieldFront = 26
-ShieldBack = 27
-ShieldLeft = 28
-ShieldRight = 29
-ShieldTop = 30
-ShieldBottom = 31
-ZoomIn = 32
-ZoomOut = 33
-ZoomReset = 34
-PowerResetDistribution = 32
-PowerPresetInc1 = 33
+Vtol = 26                       # MFD Right
+DockMode = 27                   # MFD Right
+AutoDock = 28                   # MFD Right
+AutoLand = 29                   # MFD Right
+LandingGear = 30                # MFD Right
+
+InternalLocks = 31              # MFD Right
+CloseDoors = 32                 # MFD Right
+OpenDoors = 33                  # MFD Right
+UnlockDoors = 34                # MFD Right  
+LockDoors = 35                  # MFD Right
+
+
+HeadTrackCentre = 33            #SC_Right_Warthog 
 PowerPresetInc2 = 34
 PowerPresetInc3 = 35
 IncreaseCoolerRate = 36
@@ -87,7 +99,7 @@ ZoomHat_look = 1
 
 
 ComstabOff = 52
-GSAFE = 53
+temp = 53
 SelfDestruct = 38
 #ScanMode = 43 #Removed due to Macro
 

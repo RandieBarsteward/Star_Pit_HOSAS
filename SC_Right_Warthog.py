@@ -2,6 +2,12 @@ import HOSAS
 import scmap
 import SC_Left_Virpil_Constellation
 
+RightStick = gremlin.input_devices.JoystickDecorator(
+    "RIGHT VPC Stick WarBRD",
+    "{338B04D0-F7DB-11EC-8003-444553540000}",
+    "Default"
+)
+
 
 #Trigger groups
 @HOSAS.RightStick.button(HOSAS.TriggerFirstStage)
@@ -12,6 +18,7 @@ def onJoystickBtn_FireWeaponGroup1(event, vjoy):
 def onJoystickBtn_FireWeaponGroup2(event, vjoy):
     vjoy[1].button(scmap.FireWeaponGroup2).is_pressed = event.is_pressed
 
+
 # Red Missile Button
 @HOSAS.RightStick.button(HOSAS.RedButton)
 def onJoystickBtn_Missiles(event, vjoy):
@@ -20,8 +27,8 @@ def onJoystickBtn_Missiles(event, vjoy):
     
 #Pinky Button - Intend CounterMeasure Macro?
 @HOSAS.RightStick.button(HOSAS.PinkyButton)
-def onJoystickBtn_SecondCM(event, vjoy):
-    vjoy[1].button(scmap.CounterMeasures).is_pressed = event.is_pressed
+def onJoystickBtn_HeadTrackCentre(event, vjoy):
+    vjoy[1].button(scmap.HeadTrackCentre).is_pressed = event.is_pressed
 
 #Pinky Handle
 @HOSAS.RightStick.button(HOSAS.PinkyHandle)
