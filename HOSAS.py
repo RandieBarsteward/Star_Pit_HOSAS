@@ -1,13 +1,20 @@
+STARPIT_PATH = "C:/Users/*\joystick gremlin" 
+
+import sys
+if STARPIT_PATH not in sys.path:
+    sys.path.append(STARPIT_PATH)
+
+import scmap
+
 import imp
 from pydoc import importfile
-import gremlin
+
+from gremlin.util import log
+from gremlin.user_plugin import *
 from gremlin.spline import CubicSpline
 from gremlin.spline import CubicBezierSpline
 from vjoy.vjoy import AxisName
 import math
-import scmap
-
-
 
 ##############################################################################
 #Define vJoy Axis'and assign variable names 
@@ -47,19 +54,19 @@ ThrusterPower2 = 8                     # Slider 2
 
 LeftStick = gremlin.input_devices.JoystickDecorator(
     "LEFT VPC Stick WarBRD",
-    "{338B04D0-F7DB-11EC-8002-444553540000}",
+    "{4BFF0D60-9B62-11ED-8006-444553540000}",
     "Default"
 )
 
 RightStick = gremlin.input_devices.JoystickDecorator(
     "RIGHT VPC Stick WarBRD",
-    "{338B04D0-F7DB-11EC-8003-444553540000}",
+    "{4BFF0D60-9B62-11ED-8008-444553540000}",
     "Default"
 )
 
 Pedals = gremlin.input_devices.JoystickDecorator(
     "Saitek Pro Flight Combat Rudder Pedals",
-    "{D88335C0-F7BD-11EC-8001-444553540000}",
+    "{4BFFA9A0-9B62-11ED-8012-444553540000}",
     "Default"
 )
 
@@ -90,14 +97,14 @@ control_curve = CubicSpline(
 ])
 
 reverse_curve = CubicBezierSpline(
-     [(-1.0, 1.0), (-0.8, 0.8), (-0.512, 0.004), (0, 0), (0.512, 0.004), (0.8, 0.8), (1.0, -1.0),
+     [(-1.0, 1.0), (-0.8, 0.8), (-0.512, 0.004), (0, 0), (0.512, -0.004), (0.8, -0.8), (1.0, -1.0),
 ])
 
 precision_curve = CubicSpline(
         [(-1.0, -0.5), (0.0, 0.0), (1.0, 0.5)]
 )
 
-#Pedals Stick Axis
+#Pedals Axis
 ''''
 @Pedals.axis(1)
 def pitch(event, vjoy):
@@ -106,11 +113,11 @@ def pitch(event, vjoy):
 @Pedals.axis(2)
 def yaw(event, vjoy):
     vjoy[2].axis(TempAxis2).value = default_curve(event.value)
-
+'''
 @Pedals.axis(6)
 def yaw(event, vjoy):
     vjoy[1].axis(Roll).value = control_curve(event.value)
-'''
+
 
 
 ##############################################################################
@@ -119,35 +126,6 @@ def yaw(event, vjoy):
 ###########################
 #  Left Stick - Virpil Constellation Delta #
 ###########################
-
-#Left Stick Axis
-#Axis 1 = Left/right
-
-@LeftStick.axis(1)
-def pitch(event, vjoy):
-    vjoy[1].axis(StrafeLeftRight).value = control_curve(event.value)
-
-#Axis 2 = forward/back
-@LeftStick.axis(2)
-def yaw(event, vjoy):
-    vjoy[1].axis(StrafeForwardBack).value = reverse_curve(event.value)
-
-#Axis 3 = Strafe Up/Down (twist)
-@LeftStick.axis(3)
-def verticalStrafe(event, vjoy):
-    vjoy[1].axis(StrafeUpDown).value = reverse_curve(event.value)
-
-#Axis 4 = Thumb Joy Left Right
-@LeftStick.axis(4)
-def walkLeftRight(event, vjoy):
-    vjoy[1].axis(ThumbStickLeftRight).value = control_curve(event.value)
-
-#Axis 5 = Thumb Joy Up Down
-@LeftStick.axis(5)
-def walkForwardBack(event, vjoy):
-    vjoy[1].axis(ThumbStickUpDown).value = control_curve(event.value)
-                      
-ThumbStickUpDown = 8 
 
 #Trigger groups
 L_TriggerFirstStage = 1
@@ -183,6 +161,34 @@ TopFourWayRight = 19
 TopFourWayDown = 20
 TopFourWayPress = 22
 
+#Left Stick Axis
+#Axis 1 = Left/right
+
+@LeftStick.axis(1)
+def pitch(event, vjoy):
+    vjoy[1].axis(StrafeLeftRight).value = control_curve(event.value)
+
+#Axis 2 = forward/back
+@LeftStick.axis(2)
+def yaw(event, vjoy):
+    vjoy[1].axis(StrafeForwardBack).value = reverse_curve(event.value)
+
+#Axis 3 = Strafe Up/Down (twist)
+@LeftStick.axis(3)
+def verticalStrafe(event, vjoy):
+    vjoy[1].axis(StrafeUpDown).value = reverse_curve(event.value)
+
+#Axis 4 = Thumb Joy Left Right
+@LeftStick.axis(4)
+def walkLeftRight(event, vjoy):
+    vjoy[1].axis(ThumbStickLeftRight).value = control_curve(event.value)
+
+#Axis 5 = Thumb Joy Up Down
+@LeftStick.axis(5)
+def walkForwardBack(event, vjoy):
+    vjoy[1].axis(ThumbStickUpDown).value = control_curve(event.value)
+                      
+
 
 
 @LeftStick.button(FlatTrigger)
@@ -205,7 +211,6 @@ def onJoystickBtn_SpeedLimitDown(event, vjoy):
 #Trigger groups
 TriggerFirstStage = 1
 TriggerSecondStage = 6
-
 
 #Right Stick Axis
 @RightStick.axis(1)
@@ -407,49 +412,9 @@ ControlToggleCruise = 27
 ControlToggleFlight = 28
 
 
-############################
-# MFD - Clockwise - Both MFDs have the same construction and button layout
-############################
 
-MFD_1 = 1
-MFD_2 = 2
-MFD_3 = 3
-MFD_4 = 4
-MFD_5 = 5
 
-MFD_6 = 6
-MFD_7 = 7
-MFD_8 = 8
-MFD_9 = 9
-MFD_10 = 10
 
-MFD_11 = 11
-MFD_12 = 12
-MFD_13 = 13
-MFD_14 = 14
-MFD_15 = 15
-
-MFD_16 = 16
-MFD_17 = 17
-MFD_18 = 18
-MFD_19 = 19
-MFD_20 = 20
-
-#Top right
-SYM_Up = 21
-SYM_Down = 22
-
-#Bottom right
-CON_Up = 23
-CON_Down = 24
-
-#Bottom left
-BRT_Up = 25
-BRT_Down = 26
-
-#Top left
-GAIN_Up = 27
-GAIN_Down = 28
 
 '''
 ############################
@@ -496,40 +461,6 @@ Left_BRT_Down = 26
 Left_GAIN_Up = 27
 Left_GAIN_Down = 28
 '''
-#Left MFD
-LeftMFD.button(MFD_1)
-def onJoystickBtn_ESPToggle(event, vjoy):
-    vjoy[1].button(scmap.ESPToggle).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_2)
-def onJoystickBtn_Decouple(event, vjoy):
-    vjoy[1].button(scmap.Decouple).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_3)
-def onJoystickBtn_gsafe(event, vjoy):
-    vjoy[1].button(scmap.gsafe).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_11)
-def onJoystickBtn_ActiveScan(event, vjoy):
-    vjoy[1].button(scmap.ActiveScan).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_12)
-def onJoystickBtn_RadarPing(event, vjoy):
-    vjoy[1].button(scmap.RadarPing).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_13)
-def onJoystickBtn_AnglePlus(event, vjoy):
-    vjoy[1].button(scmap.AnglePlus).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_14)
-def onJoystickBtn_AngleMinus(event, vjoy):
-    vjoy[1].button(scmap.AngleMinus).is_pressed = event.is_pressed
-
-LeftMFD.button(MFD_15)
-def onJoystickBtn_ScanMode(event, vjoy):
-    vjoy[1].button(scmap.ScanMode).is_pressed = event.is_pressed
-
-
 
 ############################
 # MFD Right
@@ -575,6 +506,85 @@ Left_BRT_Down = 26
 Left_GAIN_Up = 27
 Left_GAIN_Down = 28
 '''
+
+############################
+# MFD - Clockwise - Both MFDs have the same construction and button layout
+############################
+
+MFD_1 = 1
+MFD_2 = 2
+MFD_3 = 3
+MFD_4 = 4
+MFD_5 = 5
+
+MFD_6 = 6
+MFD_7 = 7
+MFD_8 = 8
+MFD_9 = 9
+MFD_10 = 10
+
+MFD_11 = 11
+MFD_12 = 12
+MFD_13 = 13
+MFD_14 = 14
+MFD_15 = 15
+
+MFD_16 = 16
+MFD_17 = 17
+MFD_18 = 18
+MFD_19 = 19
+MFD_20 = 20
+
+#Top right
+SYM_Up = 21
+SYM_Down = 22
+
+#Bottom right
+CON_Up = 23
+CON_Down = 24
+
+#Bottom left
+BRT_Up = 25
+BRT_Down = 26
+
+#Top left
+GAIN_Up = 27
+GAIN_Down = 28
+
+#Left MFD
+LeftMFD.button(MFD_1)
+def onJoystickBtn_ESPToggle(event, vjoy):
+    vjoy[1].button(scmap.ESPToggle).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_2)
+def onJoystickBtn_Decouple(event, vjoy):
+    vjoy[1].button(scmap.Decouple).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_3)
+def onJoystickBtn_gsafe(event, vjoy):
+    vjoy[1].button(scmap.gsafe).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_11)
+def onJoystickBtn_ActiveScan(event, vjoy):
+    vjoy[1].button(scmap.ActiveScan).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_12)
+def onJoystickBtn_RadarPing(event, vjoy):
+    vjoy[1].button(scmap.RadarPing).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_13)
+def onJoystickBtn_AnglePlus(event, vjoy):
+    vjoy[1].button(scmap.AnglePlus).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_14)
+def onJoystickBtn_AngleMinus(event, vjoy):
+    vjoy[1].button(scmap.AngleMinus).is_pressed = event.is_pressed
+
+LeftMFD.button(MFD_15)
+def onJoystickBtn_ScanMode(event, vjoy):
+    vjoy[1].button(scmap.ScanMode).is_pressed = event.is_pressed
+
+
 #Right MFD
 RightMFD.button(MFD_1)
 def onJoystickBtn_Vtol(event, vjoy):

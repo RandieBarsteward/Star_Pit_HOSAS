@@ -7,11 +7,11 @@
                         # STAR CITIZEN KEYBINDINGS #
                         ############################
 
-# Following joystick axes, buttons, and hats should be set in the key-bindings
-# of Star Citizen. You should not need to change these values.
+# vJoy mapping for Star Citizen. You should not need to change these values.
+# vJoy can support 128 buttons.
 
 ##############################################################################
-# JOYSTICK BUTTONS (maximum of '50' supported by Star Citizen)
+# vJoy BUTTON MAPPING FOR VJOY DEVICE 1 (maximum of '50' supported by Star Citizen?) 
 #-----------------------------------------------------------------------------
 FireWeaponGroup1 = 1            #SC_Right_Warthog
 FireWeaponGroup2 = 2            #SC_Right_Warthog
@@ -103,3 +103,5 @@ temp = 53
 SelfDestruct = 38
 #ScanMode = 43 #Removed due to Macro
 
+##############################################################################
+# vJoy BUTTON MAPPING FOR VJOY DEVICE 2 (AS NEEDED) (maximum of '50' supported by Star Citizen?) 
